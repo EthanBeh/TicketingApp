@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"> </script>
+</head>
+<body>
+    <section id="login-screen">
+        <div class="container">
+            <h1 class="app-title">Hot-and-Cold</h1>
+            <div>
+                <input id="email" type="email" placeholder="Email">
+                <input id="password" type="password" placeholder="Password">
+                <button id="sign-in">Sign in</button>
+                <button id="create-account">Create Account</button>
+            </div>
+        </div>
+    </section>
+    <section id="ticket-screen">
+        <form>
+            <label for="problem">What's having the problem?</label>
+            <select id="problem">
+                <option value="h">hardware</option>
+                <option value="so">software</option>
+                <option value="sm">smartboard</option>
+                <option value="w">wires</option>
+                <option value="km">keyboard/mouse</option>
+                <option value="i">internet</option>
+                <option value="os">OS</option>
+                <option value="pc">printer/copier</option>
+                <option value="u">unknown</option>
+                <option value="o">other</option>
+            </select>
+            <label for="affected">What's having the problem?</label>
+            <select id="affected">
+                <option value="c">whole classroom</option>
+                <option value="s">teacher's station</option>
+                <option value="l">teacher laptop</option>
+                <option value="l3">&lt 3 student computers</option>
+                <option value="g3">&gt 3 student computers</option>
+                <option value="o">other equipment</option>
+            </select>
+            <label for="description">Describe the issue</label>
+            <input id="description">
+            <label for="tried">What have you tried</label>
+            <input id="tried">
+            <label for="admin">Are admin privileges needed?</label>
+            <select id="admin">
+                <option value="y">yes</option>
+                <option value="n">no</option>
+                <option value="u">unsure</option>
+            </select>
+            <label for="room">Room Number</label>
+            <input id="room">
+            <label for="affected">Which stations are affected</label>
+            <input id="stations">
+            <input type="submit" value="Submit">
+        </form>
+    </section>
+</body>
