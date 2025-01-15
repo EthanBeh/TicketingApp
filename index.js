@@ -3,14 +3,9 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebas
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
 
-// TODO: Add your Firebase configuration here (replace this with your Firebase settings from the Firebase console)
+
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+
 };
 
 // Initialize Firebase services
@@ -105,7 +100,7 @@ ticketForm.addEventListener("submit", (event) => {
   }
 });
 
-/* === UI Functions === */
+
 
 // Show ticket screen
 function showTicketScreen() {
