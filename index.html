@@ -4,15 +4,15 @@
     <script src="index.js"> </script>
 </head>
 <body>
+    <h1 class="app-title">Ticketing App</h1>
     <section id="login-screen">
         <div class="container">
-            <h1 class="app-title">Hot-and-Cold</h1>
-            <div>
-                <input id="email" type="email" placeholder="Email">
-                <input id="password" type="password" placeholder="Password">
-                <button id="sign-in">Sign in</button>
-                <button id="create-account">Create Account</button>
-            </div>
+            <input id="email" type="email" placeholder="Email">
+            <br>
+            <input id="password" type="password" placeholder="Password">
+            <br>
+            <button id="sign-in">Sign in</button>
+            <button id="create-account">Create Account</button>
         </div>
     </section>
     <section id="ticket-screen">
@@ -30,6 +30,7 @@
                 <option value="u">unknown</option>
                 <option value="o">other</option>
             </select>
+            <br>
             <label for="affected">What's having the problem?</label>
             <select id="affected">
                 <option value="c">whole classroom</option>
@@ -39,21 +40,28 @@
                 <option value="g3">&gt 3 student computers</option>
                 <option value="o">other equipment</option>
             </select>
+            <br>
             <label for="description">Describe the issue</label>
             <input id="description">
+            <br>
             <label for="tried">What have you tried</label>
             <input id="tried">
+            <br>
             <label for="admin">Are admin privileges needed?</label>
             <select id="admin">
                 <option value="y">yes</option>
                 <option value="n">no</option>
                 <option value="u">unsure</option>
             </select>
+            <br>
             <label for="room">Room Number</label>
             <input id="room">
+            <br>
             <label for="affected">Which stations are affected</label>
             <input id="stations">
+            <br>
             <input type="submit" value="Submit">
         </form>
+        <h6> Submitting this form will trigger an email to be sent to BTHS administration </h6>
     </section>
 </body>

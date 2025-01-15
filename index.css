@@ -1,0 +1,31 @@
+body {
+    background-color:burlywood;
+    font-family:'Gill Sans MT'
+}
+
+.app-title {
+    font-size: 36px;
+}
+
+#login-screen {
+    background-color:beige;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 10px;
+}
+
+#ticket-screen {
+    background-color:bisque ;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+input, select {
+    margin-bottom: 5px;
+}
+
+h6 {
+    margin: 3px;
+}
