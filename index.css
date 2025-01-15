@@ -1,6 +1,7 @@
 body {
     background-color:burlywood;
-    font-family:'Gill Sans MT'
+    font-family:'Gill Sans MT';
+    text-align: center;
 }
 
 .app-title {
@@ -8,15 +9,17 @@ body {
 }
 
 #login-screen {
+    margin: auto;
+    width: 500px;
     background-color:beige;
     padding-top: 20px;
     padding-bottom: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
     margin-bottom: 10px;
 }
 
 #ticket-screen {
+    margin: auto;
+    width: 500px;
     background-color:bisque ;
     padding-top: 20px;
     padding-bottom: 20px;

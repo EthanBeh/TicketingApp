@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <link rel="stylesheet" href="index.css">
-    <script src="index.js"> </script>
+    <script src="index.js" type="module"> </script>
 </head>
 <body>
     <h1 class="app-title">Ticketing App</h1>
@@ -19,26 +19,26 @@
         <form>
             <label for="problem">What's having the problem?</label>
             <select id="problem">
-                <option value="h">hardware</option>
-                <option value="so">software</option>
-                <option value="sm">smartboard</option>
-                <option value="w">wires</option>
-                <option value="km">keyboard/mouse</option>
-                <option value="i">internet</option>
+                <option value="hardware">hardware</option>
+                <option value="software">software</option>
+                <option value="smartboard">smartboard</option>
+                <option value="wires">wires</option>
+                <option value="keyboard/mouse">keyboard/mouse</option>
+                <option value="internet">internet</option>
                 <option value="os">OS</option>
-                <option value="pc">printer/copier</option>
-                <option value="u">unknown</option>
-                <option value="o">other</option>
+                <option value="printer/copier">printer/copier</option>
+                <option value="unknown">unknown</option>
+                <option value="other">other</option>
             </select>
             <br>
             <label for="affected">What's having the problem?</label>
             <select id="affected">
-                <option value="c">whole classroom</option>
-                <option value="s">teacher's station</option>
-                <option value="l">teacher laptop</option>
-                <option value="l3">&lt 3 student computers</option>
-                <option value="g3">&gt 3 student computers</option>
-                <option value="o">other equipment</option>
+                <option value="whole classroom">whole classroom</option>
+                <option value="teacher's station">teacher's station</option>
+                <option value="teacher laptop">teacher laptop</option>
+                <option value="&lt3 student computers">&lt 3 student computers</option>
+                <option value="&gt 3 student computers">&gt 3 student computers</option>
+                <option value="other equipment">other equipment</option>
             </select>
             <br>
             <label for="description">Describe the issue</label>
@@ -49,9 +49,9 @@
             <br>
             <label for="admin">Are admin privileges needed?</label>
             <select id="admin">
-                <option value="y">yes</option>
-                <option value="n">no</option>
-                <option value="u">unsure</option>
+                <option value="yes">yes</option>
+                <option value="no">no</option>
+                <option value="unsure">unsure</option>
             </select>
             <br>
             <label for="room">Room Number</label>
