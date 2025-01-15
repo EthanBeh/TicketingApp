@@ -1,22 +1,20 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
-import { getDatabase, ref, set, push } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
-// Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDkWvmeW_fRGI7seJzZY8X0slN3oRhYibk",
-  authDomain: "tech-ticketing-app.firebaseapp.com",
-  projectId: "tech-ticketing-app",
-  storageBucket: "tech-ticketing-app.firebasestorage.app",
-  messagingSenderId: "607861308775",
-  appId: "1:607861308775:web:9f687d695d776da01bc3c2",
+// Firebase Configuration
+const appSettings = {
   databaseURL: "https://tech-ticketing-app-default-rtdb.firebaseio.com/",
 };
 
-// Initialize Firebase services
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getDatabase(app);
+// Initialize Firebase
+const app = initializeApp(appSettings);
+const database = getDatabase(app);
+
+// Reference to database path
+const userInfoRef = ref(database, "userInfo");
+const ticketsRef = ref(database, "tickets");
+
+console.log("Firebase App Initialized:", app);
 
 // DOM elements
 const loginScreen = document.getElementById("login-screen");
@@ -41,51 +39,36 @@ document.addEventListener("DOMContentLoaded", () => {
   showLoginScreen();
 });
 
-// Authentication Event Listeners
-signInButton.addEventListener("click", () => {
-  const email = emailInput.value.trim();
-  const password = passwordInput.value.trim();
 
-  if (email && password) {
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        alert("Signed in successfully");
-        showTicketScreen();
-      })
-      .catch((error) => {
-        alert("Error signing in: " + error.message);
-      });
-  } else {
-    alert("Please enter your email and password.");
-  }
-});
 
+// Handle account creation
 createAccountButton.addEventListener("click", () => {
   const email = emailInput.value.trim();
   const password = passwordInput.value.trim();
 
   if (email && password) {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        set(ref(db, `users/${user.uid}`), {
-          email: user.email,
-          createdAt: new Date().toISOString(),
-        });
-        alert("Account created successfully");
+    // Save user information to the database
+    push(userInfoRef, {
+      email: email,
+      password: password, // Store hashed passwords in production, not plain text
+      createdAt: new Date().toISOString(),
+    })
+      .then(() => {
+        alert("Account created successfully!");
         showTicketScreen();
       })
       .catch((error) => {
+        console.error("Error creating account:", error.message);
         alert("Error creating account: " + error.message);
       });
   } else {
-    alert("Please enter your email and password.");
+    alert("Please enter a valid email and password.");
   }
 });
 
-// Ticket Submission Event Listener
+// Handle ticket submission
 ticketForm.addEventListener("submit", (event) => {
-  event.preventDefault();
+  event.preventDefault(); // Prevent form reload
 
   const ticketData = {
     problem: problemSelect.value,
@@ -99,12 +82,15 @@ ticketForm.addEventListener("submit", (event) => {
   };
 
   if (ticketData.description && ticketData.roomNumber) {
-    push(ref(db, "tickets"), ticketData)
+    // Save ticket data to the database
+    push(ticketsRef, ticketData)
       .then(() => {
         alert("Ticket submitted successfully!");
-        ticketForm.reset(); // Reset the form
+        
+        ticketForm.reset(); // Clear the form
       })
       .catch((error) => {
+        console.error("Error submitting ticket:", error.message);
         alert("Error submitting ticket: " + error.message);
       });
   } else {
@@ -112,7 +98,7 @@ ticketForm.addEventListener("submit", (event) => {
   }
 });
 
-// Screen Toggle Functions
+// Screen toggle functions
 function showTicketScreen() {
   loginScreen.style.display = "none";
   ticketScreen.style.display = "block";
@@ -122,4 +108,5 @@ function showLoginScreen() {
   loginScreen.style.display = "block";
   ticketScreen.style.display = "none";
 }
+
 
