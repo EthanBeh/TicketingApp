@@ -1,17 +1,22 @@
-// Import necessary Firebase SDK functions
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+import { getDatabase, ref, set, push } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js";
 
-
+// Firebase configuration
 const firebaseConfig = {
-
+  apiKey: "AIzaSyDkWvmeW_fRGI7seJzZY8X0slN3oRhYibk",
+  authDomain: "tech-ticketing-app.firebaseapp.com",
+  projectId: "tech-ticketing-app",
+  storageBucket: "tech-ticketing-app.firebasestorage.app",
+  messagingSenderId: "607861308775",
+  appId: "1:607861308775:web:9f687d695d776da01bc3c2",
+  databaseURL: "https://tech-ticketing-app-default-rtdb.firebaseio.com/",
 };
 
 // Initialize Firebase services
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
+const db = getDatabase(app);
 
 // DOM elements
 const loginScreen = document.getElementById("login-screen");
@@ -31,9 +36,12 @@ const adminSelect = document.getElementById("admin");
 const roomInput = document.getElementById("room");
 const stationsInput = document.getElementById("stations");
 
-/* === Event Listeners === */
+// Show only the login screen on page load
+document.addEventListener("DOMContentLoaded", () => {
+  showLoginScreen();
+});
 
-// Sign in
+// Authentication Event Listeners
 signInButton.addEventListener("click", () => {
   const email = emailInput.value.trim();
   const password = passwordInput.value.trim();
@@ -52,14 +60,18 @@ signInButton.addEventListener("click", () => {
   }
 });
 
-// Create account
 createAccountButton.addEventListener("click", () => {
   const email = emailInput.value.trim();
   const password = passwordInput.value.trim();
 
   if (email && password) {
     createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
+      .then((userCredential) => {
+        const user = userCredential.user;
+        set(ref(db, `users/${user.uid}`), {
+          email: user.email,
+          createdAt: new Date().toISOString(),
+        });
         alert("Account created successfully");
         showTicketScreen();
       })
@@ -71,9 +83,9 @@ createAccountButton.addEventListener("click", () => {
   }
 });
 
-// Ticket submission
+// Ticket Submission Event Listener
 ticketForm.addEventListener("submit", (event) => {
-  event.preventDefault(); // Prevent page reload
+  event.preventDefault();
 
   const ticketData = {
     problem: problemSelect.value,
@@ -87,10 +99,10 @@ ticketForm.addEventListener("submit", (event) => {
   };
 
   if (ticketData.description && ticketData.roomNumber) {
-    addDoc(collection(db, "tickets"), ticketData)
+    push(ref(db, "tickets"), ticketData)
       .then(() => {
         alert("Ticket submitted successfully!");
-        ticketForm.reset();
+        ticketForm.reset(); // Reset the form
       })
       .catch((error) => {
         alert("Error submitting ticket: " + error.message);
@@ -100,16 +112,14 @@ ticketForm.addEventListener("submit", (event) => {
   }
 });
 
-
-
-// Show ticket screen
+// Screen Toggle Functions
 function showTicketScreen() {
   loginScreen.style.display = "none";
   ticketScreen.style.display = "block";
 }
 
-// Show login screen (optional, if logging out is added)
 function showLoginScreen() {
   loginScreen.style.display = "block";
   ticketScreen.style.display = "none";
 }
+
